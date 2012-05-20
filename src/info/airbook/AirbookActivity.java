@@ -33,5 +33,5 @@ public class AirbookActivity extends Activity {
 				new int[] { R.id.avatar_list, R.id.name_list });
 		lsListView.setAdapter(listItemAdapter);
 	}
-    }
+
 }
