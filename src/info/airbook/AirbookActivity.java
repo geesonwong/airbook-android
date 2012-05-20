@@ -1,6 +1,5 @@
 package info.airbook;
 
-<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -34,16 +33,5 @@ public class AirbookActivity extends Activity {
 				new int[] { R.id.avatar_list, R.id.name_list });
 		lsListView.setAdapter(listItemAdapter);
 	}
-=======
-import android.app.Activity;
-import android.os.Bundle;
-
-public class AirbookActivity extends Activity {
-    /** Called when the activity is first created. */
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
     }
->>>>>>> airbook-android/master
 }
