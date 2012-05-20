@@ -20,16 +20,12 @@ public class AirbookActivity extends Activity {
 		ArrayList<HashMap<String, Object>> listItem = new ArrayList<HashMap<String, Object>>();
 		for (int i = 0; i < 10; i++) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
-			map.put("ItemImage", R.drawable.avatar);// 图像资源的ID
+			map.put("ItemImage", R.drawable.avatar);
 			map.put("ItemTitle", "Level " + i);
 			listItem.add(map);
 		}
-		// 生成适配器的Item和动态数组对应的元素
-		SimpleAdapter listItemAdapter = new SimpleAdapter(this, listItem,// 数据源
-				R.layout.entry,// ListItem的XML实现
-				// 动态数组与ImageItem对应的子项
-				new String[] { "ItemImage", "ItemTitle" },
-				// ImageItem的XML文件里面的一个ImageView,两个TextView ID
+		SimpleAdapter listItemAdapter = new SimpleAdapter(this, listItem,
+				R.layout.entry, new String[] { "ItemImage", "ItemTitle" },
 				new int[] { R.id.avatar_list, R.id.name_list });
 		lsListView.setAdapter(listItemAdapter);
 	}
