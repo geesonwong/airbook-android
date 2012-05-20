@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+        <solid android:color="#ffffff" />        //自定义输入框的背景色 也可以是图片等等
+        <corners android:radius="10dip" />        //自定义显示的圆角大小
+</shape> 

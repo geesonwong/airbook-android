@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, AirbookActivity!</string>
+    <string name="app_name">Airbook-android</string>
+    <string name="account_label">账号</string>
+    <string name="edit_account_hint">输入账号</string>
+    <string name="password_label">密码</string>
+    <string name="edit_password_hint">输入密码</string>
+    <string name="remember_me">记住我</string>
+    <string name="login">登  陆</string>
+    <string name="reg">注  册</string>
+    <string-array name="restaurants">
+    	<item>burger place</item>
+    	<item>pizza</item>
+    	<item>buckets</item>
+    	<item>sushi</item>
+    	<item>name</item>
+    </string-array>
+</resources>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+	<RelativeLayout android:id="@+id/search_layout"
+	    android:gravity="center_vertical" 
+	    android:layout_width="fill_parent" 
+	    android:layout_height="54.0dip"> 
+	    
+	    <EditText  android:id="@+id/edit_seach"
+	        android:background="@drawable/edit_login"
+	    	android:layout_width="fill_parent" 
+	    	android:layout_height="wrap_content" 
+	    	android:layout_marginTop="10.0dip"
+	    	android:layout_marginLeft="5.0dip"
+	    	android:layout_marginRight="5.0dip"
+	    	android:paddingLeft="40dip"
+	        />
+	    
+	    <ImageView android:id="@+id/search"
+	        android:background="@drawable/search"
+	        android:layout_width="50px"
+	        android:layout_height="20px"
+	    	android:layout_marginLeft="8.0dip"
+	        android:layout_alignTop="@+id/edit_seach"
+	         android:layout_alignBottom="@+id/edit_seach"/>
+	    
+	</RelativeLayout>
+		<RelativeLayout android:id="@+id/menu_layout"
+	    android:layout_alignParentBottom="true"
+		android:background="@drawable/menu_bg" android:layout_width="fill_parent"
+		android:layout_height="44.0dip">
+		<ImageButton android:id="@+id/login_option"
+			android:background="@drawable/option" android:clickable="true"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:layout_marginLeft="13.0dip" android:layout_marginTop="2.0dip"
+			android:layout_centerVertical="true" />
+	</RelativeLayout>
+	 <LinearLayout android:id="@+id/friendlist_layout"
+			android:gravity="center_vertical" 
+			android:orientation="vertical" 
+			android:background="@drawable/shape_bg" 
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content"  
+			android:layout_marginLeft="10.0dip" 
+			android:layout_marginTop="7.0dip" 
+			android:layout_marginRight="10.0dip"
+			android:layout_below="@+id/search_layout"
+			android:layout_above="@+id/menu_layout">
+            <ListView android:id="@+id/friends"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"/>    
+     </LinearLayout>
+
+</RelativeLayout>

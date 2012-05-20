@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout    
+    android:id="@+id/RelativeLayout01"    
+    android:layout_width="fill_parent"    
+    xmlns:android="http://schemas.android.com/apk/res/android"    
+    android:layout_height="wrap_content"    
+	android:descendantFocusability="blocksDescendants"
+    android:paddingBottom="4dip"    
+    android:paddingLeft="12dip"  
+    android:paddingRight="12dip">  
+    
+<QuickContactBadge android:id="@+id/avatar_list"
+    android:layout_width="54px"
+    android:layout_height="54px"
+    android:paddingLeft="2px"
+    android:paddingRight="2px"
+    android:layout_marginTop ="5.0px"/>
+
+   <TextView android:id="@+id/name_list"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:paddingTop ="13px"
+     android:layout_toRightOf="@+id/avatar_list"
+     android:textSize="24sp" />
+
+  <ImageButton android:id="@+id/phone_btn"
+     android:focusable="false"
+     android:background="@drawable/phone_button"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_marginRight="1.0px"
+     android:layout_toLeftOf="@+id/item_menu"
+     android:layout_alignTop="@+id/name_list"
+     android:layout_alignBottom="@+id/name_list"/>
+  
+  <ImageButton android:id="@+id/item_menu"
+     android:focusable="false"
+     android:background="@drawable/item_menu_button"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_marginLeft="1.0px"
+     android:layout_alignTop="@+id/name_list"
+     android:layout_alignParentRight="true"
+     android:layout_alignBottom="@+id/name_list"/>
+</RelativeLayout>
