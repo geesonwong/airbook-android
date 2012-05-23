@@ -1,11 +1,14 @@
 package info.airbook.adapter;
 
 import info.airbook.R;
+import info.airbook.entity.Contact;
+import info.airbook.util.AsyncViewTask;
 
 import java.util.List;
-import java.util.Map;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +21,9 @@ import android.widget.Toast;
 public class MyAdapter extends BaseAdapter {
 	private Context context;
 
-	private List<Map<String, Object>> listItems;
+	private List<Contact> listItems;
 
 	private LayoutInflater listContainer;
-
-	private boolean[] hasChecked;
 
 	public final class ListItemView {
 		public QuickContactBadge image;
@@ -31,11 +32,10 @@ public class MyAdapter extends BaseAdapter {
 		public ImageButton itemMenu;
 	}
 
-	public MyAdapter(Context context, List<Map<String, Object>> listItems) {
+	public MyAdapter(Context context, List<Contact> listItems) {
 		this.context = context;
 		listContainer = LayoutInflater.from(context);
 		this.listItems = listItems;
-		hasChecked = new boolean[getCount()];
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class MyAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(final int position, View convertView, ViewGroup parent) {
 		ListItemView listItemView = null;
 		if (convertView == null) {
 			listItemView = new ListItemView();
@@ -71,13 +71,17 @@ public class MyAdapter extends BaseAdapter {
 		} else {
 			listItemView = (ListItemView) convertView.getTag();
 		}
-		listItemView.image.setBackgroundResource((Integer) listItems.get(
-				position).get("image"));
-		listItemView.name.setText((String) listItems.get(position).get("name"));
+		listItemView.image.setTag(listItems.get(position).getPhotoPath());
+		new AsyncViewTask().execute(listItemView.image);
+		listItemView.name.setText((String) listItems.get(position).getName());
 		listItemView.call.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Toast.makeText(context, "拨打电话", Toast.LENGTH_LONG).show();
+				Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"
+						+ listItems.get(position).getBasePhone()));
+				context.startActivity(intent);
+
 			}
 		});
 

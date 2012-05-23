@@ -20,8 +20,12 @@
             </intent-filter>
         </activity>
         
+         <activity android:name=".activity.LoadingActivity" />
          <activity android:name=".activity.FriendListActivity" />
          <activity android:name=".activity.FriendInfoActivity" />
     </application>
 
+    <uses-permission android:name="android.permission.CALL_PHONE"/>    
+    <uses-permission android:name="android.permission.INTERNET"/>    
+        
 </manifest>

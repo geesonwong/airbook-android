@@ -18,11 +18,11 @@
         android:paddingLeft="15.0dip" 
         android:layout_width="0.0dip" 
         android:layout_height="wrap_content" 
-        android:text="性别"
+        android:text="姓"
         android:layout_weight="1.0" />
         
         <TextView 
-        android:text="男"
+        android:id="@+id/first_name"
         android:textSize="18.0sp" 
         android:textColor="#ff545454" 
         android:layout_width="0.0dip" 
@@ -48,11 +48,11 @@
         android:paddingLeft="15.0dip" 
         android:layout_width="0.0dip" 
         android:layout_height="wrap_content"
-        android:text="年龄" 
+        android:text="名" 
         android:layout_weight="1.0" />
          
         <TextView 
-        android:text="21" 
+        android:id="@+id/last_name"
         android:textSize="18.0sp" 
         android:textColor="#ff545454" 
         android:layout_width="0.0dip" 
@@ -71,8 +71,20 @@
     android:layout_width="fill_parent" 
     android:layout_height="50.0dip">
     
-        <TextView android:textSize="18.0sp" android:textColor="@android:color/black" android:paddingLeft="15.0dip" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="生日" android:layout_weight="1.0" />
-        <TextView android:textSize="18.0sp" android:textColor="#ff545454" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="1990年1月1日" android:layout_weight="4.0" />
+        <TextView 
+            android:textSize="18.0sp" 
+            android:textColor="@android:color/black" 
+            android:paddingLeft="15.0dip" 
+            android:layout_width="0.0dip" 
+            android:layout_height="wrap_content" 
+            android:text="电话" 
+            android:layout_weight="1.0" />
+        <TextView android:id="@+id/base_phone"
+            android:textSize="18.0sp" 
+            android:textColor="#ff545454" 
+            android:layout_width="0.0dip" 
+            android:layout_height="wrap_content" 
+            android:layout_weight="4.0" />
         
     </LinearLayout>
     
@@ -87,11 +99,105 @@
     android:layout_width="fill_parent"
     android:layout_height="50.0dip">
      
-        <TextView android:textSize="18.0sp" android:textColor="@android:color/black" android:paddingLeft="15.0dip" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="城市" android:layout_weight="1.0" />
-        <TextView android:textSize="18.0sp" android:textColor="#ff545454" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="深圳" android:layout_weight="4.0" />
+        <TextView 
+            android:textSize="18.0sp" 
+            android:textColor="@android:color/black" 
+            android:paddingLeft="15.0dip" 
+            android:layout_width="0.0dip" 
+            android:layout_height="wrap_content" 
+            android:text="邮箱" 
+            android:layout_weight="1.0" />
+        <TextView android:id="@+id/base_email"
+            android:textSize="18.0sp" 
+            android:textColor="#ff545454" 
+            android:layout_width="0.0dip" 
+            android:layout_height="wrap_content" 
+            android:layout_weight="4.0" />
         
     </LinearLayout>
+        <View 
+    android:background="@drawable/shape_line" 
+    android:layout_width="fill_parent" 
+    android:layout_height="1.0px" />
     
+    <LinearLayout 
+    android:gravity="center_vertical" 
+    android:orientation="horizontal" 
+    android:layout_width="fill_parent"
+    android:layout_height="50.0dip">
+     
+        <TextView 
+            android:textSize="18.0sp" 
+            android:textColor="@android:color/black" 
+            android:paddingLeft="15.0dip" 
+            android:layout_width="0.0dip" 
+            android:layout_height="wrap_content" 
+            android:text="qq" 
+            android:layout_weight="1.0" />
+        <TextView android:id="@+id/qq"
+            android:textSize="18.0sp" 
+            android:textColor="#ff545454" 
+            android:layout_width="0.0dip" 
+            android:layout_height="wrap_content" 
+            android:layout_weight="4.0" />
+        
+    </LinearLayout>
+        <View 
+    android:background="@drawable/shape_line" 
+    android:layout_width="fill_parent" 
+    android:layout_height="1.0px" />
+    
+    <LinearLayout 
+    android:gravity="center_vertical" 
+    android:orientation="horizontal" 
+    android:layout_width="fill_parent"
+    android:layout_height="50.0dip">
+     
+        <TextView 
+            android:textSize="18.0sp" 
+            android:textColor="@android:color/black" 
+            android:paddingLeft="15.0dip" 
+            android:layout_width="0.0dip" 
+            android:layout_height="wrap_content" 
+            android:text="主页" 
+            android:layout_weight="1.0" />
+        <TextView android:id="@+id/home_page"
+            android:textSize="18.0sp" 
+            android:textColor="#ff545454" 
+            android:layout_width="0.0dip" 
+            android:layout_height="wrap_content" 
+            android:layout_weight="4.0" />
+        
+    </LinearLayout>   
+    
+               <View 
+    android:background="@drawable/shape_line" 
+    android:layout_width="fill_parent" 
+    android:layout_height="1.0px" />
+    
+    <LinearLayout 
+    android:gravity="center_vertical" 
+    android:orientation="horizontal" 
+    android:layout_width="fill_parent"
+    android:layout_height="50.0dip">
+     
+        <TextView 
+            android:textSize="18.0sp" 
+            android:textColor="@android:color/black" 
+            android:paddingLeft="15.0dip" 
+            android:layout_width="0.0dip" 
+            android:layout_height="wrap_content" 
+            android:text="地址" 
+            android:layout_weight="1.0" />
+        <TextView android:id="@+id/addr"
+            android:textSize="18.0sp" 
+            android:textColor="#ff545454" 
+            android:layout_width="0.0dip" 
+            android:layout_height="wrap_content" 
+            android:layout_weight="4.0" />
+        
+    </LinearLayout>    
+       
     <View 
     android:background="@drawable/shape_line" 
     android:layout_width="fill_parent" 
@@ -103,24 +209,8 @@
     android:layout_width="fill_parent" 
     android:layout_height="50.0dip">
     
-        <TextView android:textSize="18.0sp" android:textColor="@android:color/black" android:paddingLeft="15.0dip" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="省份" android:layout_weight="1.0" />
-        <TextView android:textSize="18.0sp" android:textColor="#ff545454" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="广东" android:layout_weight="4.0" />
-        
-    </LinearLayout>
-    
-    <View 
-    android:background="@drawable/shape_line"
-    android:layout_width="fill_parent" 
-    android:layout_height="1.0px" />
-    
-    <LinearLayout 
-    android:gravity="center_vertical" 
-    android:orientation="horizontal" 
-    android:layout_width="fill_parent" 
-    android:layout_height="50.0dip">
-    
-        <TextView android:textSize="18.0sp" android:textColor="@android:color/black" android:paddingLeft="15.0dip" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="国家" android:layout_weight="1.0" />
-        <TextView android:textSize="18.0sp" android:textColor="#ff545454" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="中国" android:layout_weight="4.0" />
+        <TextView android:textSize="18.0sp" android:textColor="@android:color/black" android:paddingLeft="15.0dip" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="时间" android:layout_weight="1.0" />
+        <TextView android:id="@+id/create_time" android:textSize="18.0sp" android:textColor="#ff545454" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="4.0" />
         
     </LinearLayout>
 </LinearLayout>

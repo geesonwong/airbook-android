@@ -25,7 +25,7 @@
 		    android:layout_alignTop="@+id/avatar_info"
 		    android:textSize="40sp"
 		    android:text="name"/>
-	    <TextView android:id="@+id/mark_info"
+	    <TextView android:id="@+id/remark_info"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:layout_toRightOf="@+id/avatar_info"

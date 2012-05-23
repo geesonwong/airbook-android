@@ -2,17 +2,19 @@ package info.airbook.activity;
 
 import info.airbook.R;
 import info.airbook.adapter.MyAdapter;
+import info.airbook.entity.Contact;
+import info.airbook.listener.FriendListItemListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
+import android.view.KeyEvent;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
@@ -22,30 +24,59 @@ public class FriendListActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.friend_list);
-
+		Intent intent = getIntent();
 		ListView lsListView = (ListView) findViewById(R.id.friends);
-		List<Map<String, Object>> listItems = getListItems();
+		List<Contact> listItems = getListItems(intent);
 		lsListView.setAdapter(new MyAdapter(this, listItems));
-
-		lsListView.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				startActivity(new Intent(FriendListActivity.this,
-						FriendInfoActivity.class));
-			}
-		});
+		OnItemClickListener onItemClickListener = new FriendListItemListener(
+				this, listItems);
+		lsListView.setOnItemClickListener(onItemClickListener);
+		/*
+		 * lsListView.setOnItemClickListener(new OnItemClickListener() {
+		 * 
+		 * @Override public void onItemClick(AdapterView<?> parent, View view,
+		 * int position, long id) { startActivity(new
+		 * Intent(FriendListActivity.this, FriendInfoActivity.class)); } });
+		 */
 	}
 
-	private List<Map<String, Object>> getListItems() {
-		List<Map<String, Object>> listItems = new ArrayList<Map<String, Object>>();
-		for (int i = 0; i < 10; i++) {
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("image", R.drawable.avatar);
-			map.put("name", "name" + i);
-			map.put("call", R.drawable.phone);
-			listItems.add(map);
+	protected void dialog() {
+		AlertDialog.Builder builder = new Builder(FriendListActivity.this);
+		builder.setMessage("确定要退出吗?");
+		builder.setTitle("提示");
+
+		builder.setPositiveButton("确认",
+				new android.content.DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+						FriendListActivity.this.finish();
+					}
+				});
+		builder.setNegativeButton("取消",
+				new android.content.DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				});
+		builder.create().show();
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+			dialog();
+			return false;
 		}
+		return false;
+	}
+
+	@SuppressWarnings("unchecked")
+	private List<Contact> getListItems(Intent intent) {
+		Bundle bundle = intent.getExtras();
+		ArrayList<Contact> listItems = (ArrayList<Contact>) bundle
+				.get("contacts");
 		return listItems;
 
 	}

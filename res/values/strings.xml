@@ -8,7 +8,9 @@
     <string name="password_label">密码</string>
     <string name="edit_password_hint">输入密码</string>
     <string name="remember_me">记住我</string>
-    <string name="login">登  陆</string>
+    <string name="login">登  录</string>
     <string name="reg">注  册</string>
+    <string name="logining">登  录   中...</string>
+    <string name="loading_info">加   载   中...</string>
 
 </resources>

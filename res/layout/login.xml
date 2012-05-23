@@ -96,23 +96,23 @@
 			android:layout_below="@+id/login_edit_password"
 			android:layout_alignLeft="@+id/login_edit_password"
             />
-        <Button  android:id="@+id/login_button"
+        <Button  android:id="@+id/reg_button"
             android:layout_width="130.0px"
 			android:layout_height="50px" 
 			android:padding="1.0dip"
 			android:layout_marginRight="12.0dip" 
 			android:layout_below="@+id/remember_me"
 			android:layout_alignLeft="@+id/login_edit_password"
-			android:text="@string/login"
+			android:text="@string/reg"
             />
-         <Button  android:id="@+id/reg_button"
+         <Button  android:id="@+id/login_button"
             android:layout_width="130.0px"
 			android:layout_height="50px" 
 			android:padding="1.0dip"
 			android:layout_marginRight="12.0dip" 
 			android:layout_below="@+id/remember_me"
-			android:layout_toRightOf="@+id/login_button"
-			android:text="@string/reg"
+			android:layout_toRightOf="@+id/reg_button"
+			android:text="@string/login"
             />
     </RelativeLayout>
 
