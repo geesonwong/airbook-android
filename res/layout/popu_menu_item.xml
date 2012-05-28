@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout    
+    android:id="@+id/popu_menu_layout"    
+    xmlns:android="http://schemas.android.com/apk/res/android"    
+    android:layout_width="wrap_content"    
+    android:layout_height="wrap_content"
+    android:background="@android:color/white" 
+    android:paddingLeft="12dip"  
+    android:paddingRight="12dip">  
+    <TextView android:id="@+id/menu_item"
+        android:layout_height="40px"
+        android:layout_width="wrap_content"
+        android:focusable="true"
+        />
+</LinearLayout>

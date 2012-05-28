@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+	xmlns:android="http://schemas.android.com/apk/res/android">
+   
+    <PreferenceCategory android:title="登录设置">	
+        <CheckBoxPreference android:title="自动登录" android:key="airbook_login_auto" android:summary="每次启动时自动登录系统" android:defaultValue="false" />       
+    </PreferenceCategory>
+    
+    <PreferenceCategory android:title="显示" >  	
+        <CheckBoxPreference android:title="开启横屏模式" android:key="开启横屏模式" android:defaultValue="false" />
+        <CheckBoxPreference android:title="显示系统栏挂机图标" android:key="显示系统栏挂机图标" android:summary="后台运行时，在系统栏显示程序图标" android:defaultValue="false" />
+        <PreferenceScreen android:title="更换皮肤">
+        </PreferenceScreen>
+    </PreferenceCategory>
+    
+    <PreferenceCategory android:title="辅助功能">
+        <PreferenceScreen android:title="查看流量统计" android:summary="使用所产生的上行和下行流量">
+        </PreferenceScreen>
+    </PreferenceCategory>
+    
+    <PreferenceCategory android:title="帮助">
+        <PreferenceScreen android:title="反馈建议" android:summary="反馈建议">
+        </PreferenceScreen>
+    </PreferenceCategory>
+</PreferenceScreen>
