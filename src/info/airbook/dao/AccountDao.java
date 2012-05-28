@@ -28,7 +28,7 @@ public class AccountDao {
 		Cursor cursor = db.rawQuery("select * from account ", null);
 		if (cursor.moveToNext()) {
 			account = new Account();
-			account.setId(cursor.getInt(0));
+			account.setId(cursor.getString(0));
 			account.setName(cursor.getString(1));
 			account.setPassword(cursor.getString(2));
 		}

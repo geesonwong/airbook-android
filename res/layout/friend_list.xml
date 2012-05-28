@@ -27,17 +27,14 @@
 	         android:layout_alignBottom="@+id/edit_seach"/>
 	    
 	</RelativeLayout>
-		<RelativeLayout android:id="@+id/menu_layout"
-	    android:layout_alignParentBottom="true"
-		android:background="@drawable/menu_bg" android:layout_width="fill_parent"
-		android:layout_height="44.0dip">
-		<ImageButton android:id="@+id/login_option"
-			android:background="@drawable/option" android:clickable="true"
-			android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:layout_marginLeft="13.0dip" android:layout_marginTop="2.0dip"
-			android:layout_centerVertical="true" />
-	</RelativeLayout>
-	 <LinearLayout android:id="@+id/friendlist_layout"
+	<RelativeLayout android:id="@+id/menu_layout"	
+	    android:background="@drawable/menu_bg" 
+		android:layout_width="fill_parent"
+		android:layout_alignParentBottom="true"
+		android:layout_height="wrap_content">
+		<include layout="@layout/menu"/>
+	</RelativeLayout>	
+	 <RelativeLayout android:id="@+id/friendlist_layout"
 			android:gravity="center_vertical" 
 			android:orientation="vertical" 
 			android:background="@drawable/shape_bg" 
@@ -50,7 +47,8 @@
 			android:layout_above="@+id/menu_layout">
             <ListView android:id="@+id/friends"
 				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"/>    
-     </LinearLayout>
+				android:layout_height="fill_parent"
+				android:layout_alignParentTop="true"/>    
+     </RelativeLayout>
 
 </RelativeLayout>

@@ -4,6 +4,7 @@ import info.airbook.R;
 import info.airbook.entity.Contact;
 import info.airbook.util.AsyncViewTask;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -14,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.QuickContactBadge;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +27,7 @@ public class MyAdapter extends BaseAdapter {
 	private List<Contact> listItems;
 
 	private LayoutInflater listContainer;
+	private PopupWindow pWindow;
 
 	public final class ListItemView {
 		public QuickContactBadge image;
@@ -38,8 +42,19 @@ public class MyAdapter extends BaseAdapter {
 		this.listItems = listItems;
 	}
 
+	public void setListItems(List<Contact> listItems) {
+		this.listItems = listItems;
+	}
+
+	public List<Contact> getListItems() {
+		return listItems;
+	}
+
 	@Override
 	public int getCount() {
+		if (listItems == null) {
+			return 0;
+		}
 		return listItems.size();
 	}
 
@@ -71,15 +86,21 @@ public class MyAdapter extends BaseAdapter {
 		} else {
 			listItemView = (ListItemView) convertView.getTag();
 		}
-		listItemView.image.setTag(listItems.get(position).getPhotoPath());
+		final Contact contact = listItems.get(position);
+		listItemView.image.setTag(contact.getPhotoPath());
 		new AsyncViewTask().execute(listItemView.image);
-		listItemView.name.setText((String) listItems.get(position).getName());
+		if (contact.getFirstName().isEmpty() && contact.getLastName().isEmpty()) {
+			listItemView.name.setText(contact.getName());
+		} else {
+			listItemView.name.setText(contact.getLastName()
+					+ contact.getFirstName());
+		}
 		listItemView.call.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Toast.makeText(context, "拨打电话", Toast.LENGTH_LONG).show();
 				Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"
-						+ listItems.get(position).getBasePhone()));
+						+ contact.getPhotoPath()));
 				context.startActivity(intent);
 
 			}
@@ -88,10 +109,35 @@ public class MyAdapter extends BaseAdapter {
 		listItemView.itemMenu.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(context, "点击菜单", Toast.LENGTH_LONG).show();
+				showPupupMenu(context, v);
 			}
 		});
 
 		return convertView;
 	}
+
+	public void showPupupMenu(Context context, View view) {
+		if (pWindow == null) {
+			pWindow = new PopupWindow(context);
+		}
+		if (pWindow != null && pWindow.isShowing()) {
+			pWindow.dismiss();
+			return;
+		}
+		View view2 = LayoutInflater.from(context).inflate(R.layout.popu_menu,
+				null);
+		List<String> items = new ArrayList<String>();
+		items.add("查看");
+		items.add("拨出");
+		items.add("删除");
+		pWindow.setContentView(view2);
+		pWindow.setWidth(130);
+		pWindow.setHeight(138);
+		ListView listView = (ListView) pWindow.getContentView().findViewById(
+				R.id.menu_list);
+		listView.setAdapter(new PopuMenuAdapter(context, items));
+		pWindow.setFocusable(true);
+		pWindow.showAsDropDown(view);
+	}
+
 }

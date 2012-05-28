@@ -1,15 +1,15 @@
 package info.airbook.thread;
 
+import info.airbook.activity.LoginActivity;
 import info.airbook.entity.Account;
-import info.airbook.entity.Contact;
 import info.airbook.entity.Data;
-import info.airbook.handler.LoginHandler;
 import info.airbook.util.Json2Entity;
 import info.airbook.util.NetConnection;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.util.List;
+
+import org.json.JSONObject;
 
 import android.os.Handler;
 import android.os.Message;
@@ -41,24 +41,23 @@ public class ContactThread implements Runnable {
 				httpURLConnection.getOutputStream().close();
 				httpURLConnection.connect();
 				InputStream inputStream = httpURLConnection.getInputStream();
-				Json2Entity json2Entity = new Json2Entity();
-				List<Contact> contacts = json2Entity
-						.json2Contacts(netConnection
-								.getResponeInfo(inputStream));
-				if (contacts != null) {
-					message.what = LoginHandler.LOADING_SUCCESS;
-					message.obj = contacts;
+				String resultString = netConnection.getResponeInfo(inputStream);
+				JSONObject result = Json2Entity.string2jsonObject(resultString);
+				if ((Boolean) result.optBoolean("success")) {
+					message.what = LoginActivity.LOADING_SUCCESS;
+					message.obj = resultString;
+					handler.sendMessage(message);
 				} else {
-					message.what = LoginHandler.LOADING_FAIL;
+					message.what = LoginActivity.LOADING_FAIL;
+					handler.sendMessage(message);
 				}
-				handler.sendMessage(message);
 			} else {
-				message.what = LoginHandler.LOADING_FAIL;
+				message.what = LoginActivity.LOADING_FAIL;
 				handler.sendMessage(message);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			message.what = LoginHandler.LOADING_FAIL;
+			message.what = LoginActivity.LOADING_FAIL;
 			handler.sendMessage(message);
 		}
 

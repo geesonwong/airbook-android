@@ -2,8 +2,6 @@ package info.airbook.dao;
 
 import info.airbook.entity.Contact;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,29 +17,29 @@ public class ContactDao {
 	}
 
 	public void save(Contact contact) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-		String dateString = sdf.format(contact);
 		db.execSQL(
-				"INSERT INTO contact(name, base_email,base_phone,last_name,first_name.photo_path,create_time,remark,qq,home_page,addr,type) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
-				new Object[] { contact.getName(), contact.getBaseEmail(),
-						contact.getBasePhone(), contact.getLastName(),
-						contact.getFirstName(), contact.getPhotoPath(),
-						dateString, contact.getRemark(), contact.getQq(),
+				"INSERT INTO contact(id,name, base_email,base_phone,last_name,first_name,photo_path,create_time,comment,qq,home_page,addr,type,tags,state,pigeohole) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+				new Object[] { contact.getId(), contact.getName(),
+						contact.getBaseEmail(), contact.getBasePhone(),
+						contact.getLastName(), contact.getFirstName(),
+						contact.getPhotoPath(), contact.getCreateTime(),
+						contact.getComment(), contact.getQq(),
 						contact.getHomePage(), contact.getAddr(),
-						contact.getType() });
+						contact.getType(), contact.getTags(),
+						contact.getState(), contact.getPigeohole() });
 	}
 
 	public void update(Contact contact) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-		String dateString = sdf.format(contact);
 		db.execSQL(
-				"UPDATE contact SET name= ?,  base_email = ?, base_phone = ?, last_name = ?, first_name = ?, photo_path = ?, create_time = ?,remark = ?,qq = ?,home_page=?,addr=?,type=?   where id = ?",
+				"UPDATE contact SET name= ?,  base_email = ?, base_phone = ?, last_name = ?, first_name = ?, photo_path = ?, create_time = ?,comment = ?,qq = ?,home_page=?,addr=?,type=?  tags=?, state=?, pigeohole=?  WHERE	 id = ?",
 				new Object[] { contact.getName(), contact.getBaseEmail(),
 						contact.getBasePhone(), contact.getLastName(),
 						contact.getFirstName(), contact.getPhotoPath(),
-						dateString, contact.getRemark(), contact.getQq(),
-						contact.getHomePage(), contact.getAddr(),
-						contact.getType(), contact.getId() });
+						contact.getCreateTime(), contact.getComment(),
+						contact.getQq(), contact.getHomePage(),
+						contact.getAddr(), contact.getType(),
+						contact.getTags(), contact.getState(),
+						contact.getPigeohole(), contact.getId() });
 	}
 
 	public List<Contact> getAll() {
@@ -51,24 +49,23 @@ public class ContactDao {
 
 		while (cursor.moveToNext()) {
 			Contact contact = new Contact();
-			contact.setId(cursor.getInt(0));
-			contact.setName(cursor.getString(1));
-			contact.setBaseEmail(cursor.getString(2));
-			contact.setBasePhone(cursor.getString(3));
-			contact.setLastName(cursor.getString(4));
-			contact.setFirstName(cursor.getString(5));
-			contact.setPhotoPath(cursor.getString(6));
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-			try {
-				contact.setCreateTime(sdf.parse(cursor.getString(7)));
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-			contact.setRemark(cursor.getString(8));
-			contact.setQq(cursor.getString(9));
-			contact.setHomePage(cursor.getString(10));
-			contact.setAddr(cursor.getString(11));
-			contact.setType(cursor.getInt(12));
+			contact.setId(cursor.getString(1));
+			contact.setName(cursor.getString(2));
+			contact.setBaseEmail(cursor.getString(3));
+			contact.setBasePhone(cursor.getString(4));
+			contact.setLastName(cursor.getString(5));
+			contact.setFirstName(cursor.getString(6));
+			contact.setPhotoPath(cursor.getString(7));
+			contact.setCreateTime(cursor.getString(8));
+
+			contact.setComment(cursor.getString(9));
+			contact.setQq(cursor.getString(10));
+			contact.setHomePage(cursor.getString(11));
+			contact.setAddr(cursor.getString(12));
+			contact.setType(cursor.getInt(13));
+			contact.setTags(cursor.getString(14));
+			contact.setState(cursor.getInt(15));
+			contact.setPigeohole(cursor.getString(16));
 			contacts.add(contact);
 		}
 
@@ -80,24 +77,23 @@ public class ContactDao {
 		Cursor cursor = db.rawQuery("SELECT * FROM contact where id=?",
 				new String[] { id });
 		if (cursor.moveToNext()) {
-			contact.setId(cursor.getInt(0));
-			contact.setName(cursor.getString(1));
-			contact.setBaseEmail(cursor.getString(2));
-			contact.setBasePhone(cursor.getString(3));
-			contact.setLastName(cursor.getString(4));
-			contact.setFirstName(cursor.getString(5));
-			contact.setPhotoPath(cursor.getString(6));
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-			try {
-				contact.setCreateTime(sdf.parse(cursor.getString(7)));
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-			contact.setRemark(cursor.getString(8));
-			contact.setQq(cursor.getString(9));
-			contact.setHomePage(cursor.getString(10));
-			contact.setAddr(cursor.getString(11));
-			contact.setType(cursor.getInt(12));
+			contact.setId(cursor.getString(1));
+			contact.setName(cursor.getString(2));
+			contact.setBaseEmail(cursor.getString(3));
+			contact.setBasePhone(cursor.getString(4));
+			contact.setLastName(cursor.getString(5));
+			contact.setFirstName(cursor.getString(6));
+			contact.setPhotoPath(cursor.getString(7));
+			contact.setCreateTime(cursor.getString(8));
+
+			contact.setComment(cursor.getString(9));
+			contact.setQq(cursor.getString(10));
+			contact.setHomePage(cursor.getString(11));
+			contact.setAddr(cursor.getString(12));
+			contact.setType(cursor.getInt(13));
+			contact.setTags(cursor.getString(14));
+			contact.setState(cursor.getInt(15));
+			contact.setPigeohole(cursor.getString(16));
 		}
 		return contact;
 	}
@@ -107,25 +103,29 @@ public class ContactDao {
 		Cursor cursor = db.rawQuery("SELECT * FROM contact where name=?",
 				new String[] { name });
 		if (cursor.moveToNext()) {
-			contact.setId(cursor.getInt(0));
-			contact.setName(cursor.getString(1));
-			contact.setBaseEmail(cursor.getString(2));
-			contact.setBasePhone(cursor.getString(3));
-			contact.setLastName(cursor.getString(4));
-			contact.setFirstName(cursor.getString(5));
-			contact.setPhotoPath(cursor.getString(6));
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-			try {
-				contact.setCreateTime(sdf.parse(cursor.getString(7)));
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-			contact.setRemark(cursor.getString(8));
-			contact.setQq(cursor.getString(9));
-			contact.setHomePage(cursor.getString(10));
-			contact.setAddr(cursor.getString(11));
-			contact.setType(cursor.getInt(12));
+			contact.setId(cursor.getString(1));
+			contact.setName(cursor.getString(2));
+			contact.setBaseEmail(cursor.getString(3));
+			contact.setBasePhone(cursor.getString(4));
+			contact.setLastName(cursor.getString(5));
+			contact.setFirstName(cursor.getString(6));
+			contact.setPhotoPath(cursor.getString(7));
+			contact.setCreateTime(cursor.getString(8));
+
+			contact.setComment(cursor.getString(9));
+			contact.setQq(cursor.getString(10));
+			contact.setHomePage(cursor.getString(11));
+			contact.setAddr(cursor.getString(12));
+			contact.setType(cursor.getInt(13));
+			contact.setTags(cursor.getString(14));
+			contact.setState(cursor.getInt(15));
+			contact.setPigeohole(cursor.getString(16));
 		}
 		return contact;
 	}
+
+	public void deleteAll() {
+		db.execSQL("delete  from contact");
+	}
+
 }

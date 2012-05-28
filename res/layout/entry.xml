@@ -20,6 +20,7 @@
      android:layout_width="wrap_content"
      android:layout_height="wrap_content"
      android:paddingTop ="13px"
+     android:layout_marginLeft ="5px"
      android:layout_toRightOf="@+id/avatar_list"
      android:textSize="24sp" />
 

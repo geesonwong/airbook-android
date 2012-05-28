@@ -8,7 +8,7 @@ public class OpenOrCloseDB {
 	public static SQLiteDatabase openDB(Context context) {
 		SQLiteDatabase db;
 		AirbookOpenHelper airbookOpenHelper = new AirbookOpenHelper(context);
-		db = airbookOpenHelper.getReadableDatabase();
+		db = airbookOpenHelper.getWritableDatabase();
 		return db;
 
 	}

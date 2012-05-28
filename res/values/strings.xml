@@ -2,15 +2,21 @@
 <resources>
 
     <string name="hello">Hello World, AirbookActivity!</string>
-    <string name="app_name">Airbook-android</string>
+    <string name="app_name">空中电话本</string>
     <string name="account_label">账号</string>
     <string name="edit_account_hint">输入账号</string>
     <string name="password_label">密码</string>
     <string name="edit_password_hint">输入密码</string>
     <string name="remember_me">记住我</string>
+    <string name="login_auto">自动登录</string>
     <string name="login">登  录</string>
     <string name="reg">注  册</string>
     <string name="logining">登  录   中...</string>
     <string name="loading_info">加   载   中...</string>
 
+     <string-array name="menu_list">
+         <item name="chack">查看</item>
+         <item name="delete">删除</item>
+         <item name="call">拨打</item>
+     </string-array>
 </resources>

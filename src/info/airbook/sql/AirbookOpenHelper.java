@@ -15,12 +15,11 @@ public class AirbookOpenHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		db.execSQL("CREATE TABLE IF NOT EXISTS 	account (id integer primary key autoincrement, name varchar, password varchar)");
 		db.execSQL("CREATE TABLE IF NOT EXISTS 	contact("
-				+ "id integer primary key autoincrement, name varchar, "
+				+ "native_id integer primary key autoincrement ,id varchar, name varchar, "
 				+ "base_email  varchar, base_phone varchar, last_name  varchar ,"
-				+ "first_name varchar,photo_path varchar,create_time varchar,remark varchar,"
-				+ "qq varchar, home_page varchar,addr varchar  type integer)");
+				+ "first_name varchar,photo_path varchar,create_time varchar,comment varchar,"
+				+ "qq varchar, home_page varchar,addr varchar,  type integer, tags varchar,state integer,pigeohole varchar)");
 	}
 
 	@Override

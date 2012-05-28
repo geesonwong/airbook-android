@@ -1,17 +1,15 @@
 package info.airbook.thread;
 
+import info.airbook.activity.LoginActivity;
 import info.airbook.entity.Account;
 import info.airbook.entity.Data;
 import info.airbook.entity.LoginResult;
-import info.airbook.handler.LoginHandler;
-import info.airbook.manager.AccountManager;
 import info.airbook.util.Json2Entity;
 import info.airbook.util.NetConnection;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 
-import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -19,15 +17,13 @@ import android.util.Log;
 public class LoginThread implements Runnable {
 
 	private Account account;
-	private AccountManager accountManager;
-	private Context context;
 	private Handler handler;
+	private boolean stored;
 
-	public LoginThread(Account account, Context context, Handler handler) {
+	public LoginThread(Account account, Handler handler, boolean stored) {
 		this.account = account;
-		accountManager = new AccountManager();
-		this.context = context;
 		this.handler = handler;
+		this.stored = stored;
 	}
 
 	@Override
@@ -41,53 +37,31 @@ public class LoginThread implements Runnable {
 		Message message = Message.obtain();
 		try {
 			if (httpURLConnection != null) {
-				String username = "name=" + account.getName();
-				String password = "password=" + account.getPassword();
-				httpURLConnection.getOutputStream().write(username.getBytes());
-				httpURLConnection.getOutputStream().write("&".getBytes());
-				httpURLConnection.getOutputStream().write(password.getBytes());
-				httpURLConnection.getOutputStream().flush();
-				httpURLConnection.getOutputStream().close();
+				setPamaters(httpURLConnection);
 				httpURLConnection.connect();
-				InputStream inputStream = httpURLConnection.getInputStream();
-				Json2Entity json2Entity = new Json2Entity();
-				LoginResult loginResult = json2Entity
-						.json2LoginResult(netConnection
-								.getResponeInfo(inputStream));
-				Log.i("air", loginResult.getMessage());
-				Log.i("air", httpURLConnection.getURL().toString());
-
-				String cookieVal = null;
-				String key = null;
-				StringBuffer buffer = new StringBuffer();
-				int i = 0;
-				while ((cookieVal = httpURLConnection.getHeaderField(i)) != null) {
-					key = httpURLConnection.getHeaderFieldKey(i);
-					if (key != null) {
-						if (key.equalsIgnoreCase("set-cookie")) {
-							buffer.append(cookieVal + ";");
-						}
-					}
-					i++;
-				}
-				Log.i("air", buffer.toString());
+				LoginResult loginResult = getResult(httpURLConnection,
+						netConnection);
 				if (loginResult != null) {
 					if (loginResult.isSuccess()) {
-						message.what = LoginHandler.LOGIN_SUCESS;
+						if (stored) {
+							message.what = LoginActivity.LOGIN_SUCESS_WITH_STORE;
+						} else {
+							message.what = LoginActivity.LOGIN_SUCESS;
+						}
 						message.obj = loginResult.getAccount();
 					} else {
-						message.what = LoginHandler.LOGIN_FAIL;
+						message.what = LoginActivity.LOGIN_FAIL;
 						message.obj = loginResult.getMessage();
 					}
 					handler.sendMessage(message);
 				}
 			} else {
-				message.what = LoginHandler.LOGIN_FAIL;
+				message.what = LoginActivity.LOGIN_FAIL;
 				message.obj = "系统出错";
 				handler.sendMessage(message);
 			}
 		} catch (Exception e) {
-			message.what = LoginHandler.LOGIN_FAIL;
+			message.what = LoginActivity.LOGIN_FAIL;
 			message.obj = "系统出错";
 			handler.sendMessage(message);
 			e.printStackTrace();
@@ -96,5 +70,27 @@ public class LoginThread implements Runnable {
 				httpURLConnection.disconnect();
 			}
 		}
+	}
+
+	public void setPamaters(HttpURLConnection httpURLConnection)
+			throws Exception {
+		String username = "name=" + account.getName();
+		String password = "password=" + account.getPassword();
+		httpURLConnection.getOutputStream().write(username.getBytes());
+		httpURLConnection.getOutputStream().write("&".getBytes());
+		httpURLConnection.getOutputStream().write(password.getBytes());
+		httpURLConnection.getOutputStream().flush();
+		httpURLConnection.getOutputStream().close();
+	}
+
+	public LoginResult getResult(HttpURLConnection httpURLConnection,
+			NetConnection netConnection) throws Exception {
+		InputStream inputStream = httpURLConnection.getInputStream();
+		Json2Entity json2Entity = new Json2Entity();
+		LoginResult loginResult = json2Entity.json2LoginResult(netConnection
+				.getResponeInfo(inputStream));
+		Log.i("air", loginResult.getMessage());
+		Log.i("air", httpURLConnection.getURL().toString());
+		return loginResult;
 	}
 }

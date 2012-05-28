@@ -38,7 +38,6 @@ public class AsyncViewTask extends AsyncTask<View, Void, Drawable> {
 					conn.connect();
 
 					InputStream stream = conn.getInputStream();
-
 					drawable = Drawable.createFromStream(stream, "src");
 
 					stream.close();

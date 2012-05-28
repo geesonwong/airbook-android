@@ -18,6 +18,7 @@ public class NetConnection {
 			url = new URL(addr);
 			httpURLConnection = (HttpURLConnection) url.openConnection();
 			httpURLConnection.setDoOutput(true);
+			httpURLConnection.setDoInput(true);
 			httpURLConnection.setConnectTimeout(10000);
 			httpURLConnection.setReadTimeout(10000);
 			httpURLConnection.setRequestMethod("POST");

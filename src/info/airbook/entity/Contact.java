@@ -1,36 +1,37 @@
 package info.airbook.entity;
 
-import java.util.Date;
-
-import android.os.Parcel;
-import android.os.Parcelable;
+import java.io.Serializable;
 
 /**
  * 联系人数据
  * 
  * 
  */
-public class Contact implements Parcelable {
+public class Contact implements Serializable {
 
-	private Integer id;
+	private static final long serialVersionUID = 2735631431392429220L;
+	private String id;
 	private String name;
 	private String baseEmail;
 	private String basePhone;
 	private String firstName;
 	private String lastName;
 	private String photoPath;
-	private Date createTime;
-	private String remark;
+	private String createTime;
+	private String comment;
 	private int type;
 	private String qq;
 	private String homePage;
 	private String addr;
+	private String tags;
+	private String pigeohole;
+	private int state;
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -82,20 +83,12 @@ public class Contact implements Parcelable {
 		this.photoPath = photoPath;
 	}
 
-	public Date getCreateTime() {
+	public String getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Date createTime) {
+	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
-	}
-
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
 	}
 
 	public int getType() {
@@ -130,14 +123,36 @@ public class Contact implements Parcelable {
 		this.addr = addr;
 	}
 
-	@Override
-	public int describeContents() {
-		// TODO Auto-generated method stub
-		return 0;
+	public String getTags() {
+		return tags;
 	}
 
-	@Override
-	public void writeToParcel(Parcel dest, int flags) {
-		// TODO Auto-generated method stub
+	public void setTags(String tags) {
+		this.tags = tags;
 	}
+
+	public String getPigeohole() {
+		return pigeohole;
+	}
+
+	public void setPigeohole(String pigeohole) {
+		this.pigeohole = pigeohole;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
+	public int getState() {
+		return state;
+	}
+
+	public void setState(int state) {
+		this.state = state;
+	}
+
 }
