@@ -16,6 +16,7 @@ public class Data {
 	public final static String SHARE_PREFERENCE_Id = "airbook_id";
 	public final static String SHARE_PREFERENCE_LOGIN_AUTO = "airbook_login_auto";
 	public final static String SHARE_PREFERENCE_STORED = "air_data_stored";
+	public final static String SHARE_PREFERENCE_HOST = "air_book_info_host";
 
 	public static String getSDPath() {
 		File sdcard = null;

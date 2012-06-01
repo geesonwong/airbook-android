@@ -42,7 +42,8 @@ public class FriendListItemListener implements OnItemClickListener {
 				R.id.loading_info);
 		textView.setText("加载中...");
 		Contact contact = itemList.get(position);
-		Thread thread = new Thread(new ContactDetailThread(contact, handler));
+		Thread thread = new Thread(new ContactDetailThread(contact, handler,
+				context));
 		thread.start();
 	}
 }

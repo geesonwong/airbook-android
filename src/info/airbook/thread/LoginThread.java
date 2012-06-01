@@ -6,10 +6,13 @@ import info.airbook.entity.Data;
 import info.airbook.entity.LoginResult;
 import info.airbook.util.Json2Entity;
 import info.airbook.util.NetConnection;
+import info.airbook.util.PreferenceUtil;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -19,17 +22,28 @@ public class LoginThread implements Runnable {
 	private Account account;
 	private Handler handler;
 	private boolean stored;
+	private Context context;
 
-	public LoginThread(Account account, Handler handler, boolean stored) {
+	public LoginThread(Account account, Handler handler, boolean stored,
+			Context context) {
 		this.account = account;
 		this.handler = handler;
 		this.stored = stored;
+		this.context = context;
 	}
 
 	@Override
 	public void run() {
 
-		String addr = Data.AIR_BOOK_INFO + "/m/login";
+		// String addr = Data.AIR_BOOK_INFO + "/m/login";
+
+		SharedPreferences sharedPreferences = PreferenceUtil
+				.getSharedPreferences(context);
+		String host = sharedPreferences.getString(Data.SHARE_PREFERENCE_HOST,
+				Data.AIR_BOOK_INFO);
+		String addr = host + "/m/login";
+
+		Log.i("air", addr);
 
 		NetConnection netConnection = new NetConnection();
 		HttpURLConnection httpURLConnection = netConnection.getConnection(addr);

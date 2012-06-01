@@ -4,6 +4,7 @@ import info.airbook.R;
 import info.airbook.entity.Account;
 import info.airbook.entity.Data;
 import info.airbook.listener.LoginButtonListener;
+import info.airbook.listener.RigButtonListener;
 import info.airbook.thread.ContactThread;
 import info.airbook.thread.LoginThread;
 import info.airbook.util.PreferenceUtil;
@@ -37,6 +38,7 @@ public class LoginActivity extends Activity {
 	public final static int LOADING_FAIL = 4;
 
 	private Button loginButton;
+	private Button regButton;
 	private EditText accountEditText;
 	private EditText passwordEditText;
 	private CheckBox rememberMe;
@@ -55,6 +57,7 @@ public class LoginActivity extends Activity {
 		loginHandler = new LoginHandler(this);
 
 		loginButton = (Button) findViewById(R.id.login_button);
+		regButton = (Button) findViewById(R.id.reg_button);
 		accountEditText = (EditText) findViewById(R.id.login_edit_account);
 		passwordEditText = (EditText) findViewById(R.id.login_edit_password);
 		rememberMe = (CheckBox) findViewById(R.id.remember_me);
@@ -74,6 +77,10 @@ public class LoginActivity extends Activity {
 				accountEditText, passwordEditText, rememberMe, loginAuto);
 
 		loginButton.setOnClickListener(listener);
+
+		OnClickListener regButtOnClickListener = new RigButtonListener(this);
+		regButton.setOnClickListener(regButtOnClickListener);
+
 		if (isAutoLogin) {
 			Message msg = Message.obtain();
 			msg.what = LoginActivity.LOGIN;
@@ -109,13 +116,14 @@ public class LoginActivity extends Activity {
 				Account account = (Account) msg.obj;
 				logining();
 				Thread thread = new Thread(new LoginThread(account, this,
-						stored));
+						stored, context));
 				thread.start();
 				break;
 			case LOGIN_SUCESS:
 				account = (Account) msg.obj;
 				loginSuccess(account);
-				Thread thread2 = new Thread(new ContactThread(account, this));
+				Thread thread2 = new Thread(new ContactThread(account, this,
+						context));
 				thread2.start();
 				break;
 			case LOGIN_FAIL:

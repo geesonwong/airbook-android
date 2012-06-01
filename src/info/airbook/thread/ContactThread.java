@@ -5,12 +5,15 @@ import info.airbook.entity.Account;
 import info.airbook.entity.Data;
 import info.airbook.util.Json2Entity;
 import info.airbook.util.NetConnection;
+import info.airbook.util.PreferenceUtil;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 
 import org.json.JSONObject;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 
@@ -18,16 +21,22 @@ public class ContactThread implements Runnable {
 
 	private Account account;
 	private Handler handler;
+	private Context context;
 
-	public ContactThread(Account account, Handler handler) {
+	public ContactThread(Account account, Handler handler, Context context) {
 		this.account = account;
 		this.handler = handler;
+		this.context = context;
 	}
 
 	@Override
 	public void run() {
-		String addr = Data.AIR_BOOK_INFO + "/m/getContacts";
-
+		// String addr = Data.AIR_BOOK_INFO + "/m/getContacts";
+		SharedPreferences sharedPreferences = PreferenceUtil
+				.getSharedPreferences(context);
+		String host = sharedPreferences.getString(Data.SHARE_PREFERENCE_HOST,
+				Data.AIR_BOOK_INFO);
+		String addr = host + "/m/getContacts";
 		NetConnection netConnection = new NetConnection();
 		HttpURLConnection httpURLConnection = netConnection.getConnection(addr);
 

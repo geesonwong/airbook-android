@@ -70,7 +70,7 @@ public class MenuListener implements OnItemClickListener {
 
 		account.setAccount_id(sharedPreferences.getString(
 				Data.SHARE_PREFERENCE_Id, null));
-		Thread thread = new Thread(new ContactThread(account, handler));
+		Thread thread = new Thread(new ContactThread(account, handler, context));
 		thread.start();
 	}
 
